@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Banking System Login</title>
+<link rel="stylesheet" type="text/css" href="./style.css" />
+<script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="panel-container">
+			<h3>Welcome to the Banking System</h3>
+			<p>Admin and Customers can access their respective dashboards after logging in.</p>
+			<button class="btn transparent" id="sign-in-btn">Admin Login</button>
+			<button class="btn transparent" id="sign-up-btn">Customer Login</button>
+		</div>
+	</div>
+
+	<script>
+		const sign_in_btn = document.querySelector("#sign-in-btn");
+		const sign_up_btn = document.querySelector("#sign-up-btn");
+		sign_in_btn.addEventListener('click', () => {
+			window.location.href = "Admin_Login_Page.html"; 
+		});
+
+		sign_up_btn.addEventListener('click', () => {
+			window.location.href = "Customer_Login_Page.html"; 
+		});
+	</script>
+</body>
+</html>

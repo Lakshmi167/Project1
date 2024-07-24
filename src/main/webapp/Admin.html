@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Banking Operations</title>
+<style>
+	<!DOCTYPE html>
+	<html lang="en">
+	<head>
+	    <meta charset="UTF-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	    <title>Admin Dashboard</title>
+	    <style>
+	        /* Resetting default styles */
+	        * {
+	            box-sizing: border-box;
+	            margin: 0;
+	            padding: 0;
+	        }
+
+	        body {
+	            font-family: Arial, sans-serif; /* Setting font family */
+	            background-color: #f0f0f0; /* Setting background color */
+	            padding: 20px;
+	        }
+
+	        .navbar {
+	            background-color: #333; /* Navbar background color */
+	            color: white; /* Navbar text color */
+	            display: flex;
+	            justify-content: space-between;
+	            align-items: center;
+	            padding: 10px 20px;
+	            margin-bottom: 20px;
+	        }
+
+	        .navbar h1 {
+	            font-size: 24px; /* Navbar heading font size */
+	        }
+
+	        .navbar .logout-btn {
+	            color: white; /* Logout button text color */
+	            text-decoration: none;
+	            padding: 8px 12px;
+	            border: 1px solid white;
+	            border-radius: 5px;
+	            transition: background-color 0.3s ease, color 0.3s ease;
+	        }
+
+	        .navbar .logout-btn:hover {
+	            background-color: white; /* Hover background color */
+	            color: #333; /* Hover text color */
+	        }
+
+	        .container {
+	            display: flex;
+	            flex-wrap: wrap;
+	            gap: 20px;
+	            justify-content: center; /* Center align items horizontally */
+	        }
+
+	        .box {
+	            background-color: #fff; /* Box background color */
+	            border: 1px solid #ccc; /* Box border */
+	            border-radius: 5px;
+	            padding: 20px;
+	            width: 200px; /* Fixed width for each box */
+	            text-align: center;
+	            text-decoration: none;
+	            color: #333; /* Box text color */
+	            transition: transform 0.3s ease, box-shadow 0.3s ease;
+	            display: block; /* Ensuring anchor tags behave as blocks */
+	        }
+
+	        .box:hover {
+	            transform: translateY(-5px); /* Hover effect */
+	            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1); /* Box shadow */
+	        }
+
+	        .box .text {
+	            font-size: 18px; /* Text inside box font size */
+	        }
+	    </style>
+	
+</head>
+<body>
+    
+    <div class="navbar">
+        <div class="navbar-left">
+            <h1>Admin Dashboard</h1>
+        </div>
+        <div class="navbar-right">
+            <a href="index.html" class="logout-btn">Log Out</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <a href="Registration.html" class="box">
+            <div class="text">Registration</div>
+       </a>
+        <a href="Display.html" class="box">
+           <div class="text">Display</div>
+       </a>
+        <a href="Modify.html" class="box">
+           <div class="text">Modify</div>
+       </a>
+       <a href="Delete.html" class="box">
+           <div class="text">Delete</div>
+       </a>
+        
+    </div>
+
+    
+
+    <script>
+        // Function to load content dynamically
+        function loadContent(url) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', url, true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var loadedContent = document.getElementById('loadedContent');
+                    loadedContent.style.display = 'block'; // Show the loaded content
+                    loadedContent.innerHTML = xhr.responseText;
+
+                    // Call the validation function based on the loaded content
+                    if (url === 'Modify.html') {
+                        validateModifyForm();
+                    }
+                }
+            };
+            xhr.send();
+        }
+
+        // Function to validate modify form data
+        function validateModifyForm() {
+            var modifyForm = document.getElementById("modifyForm");
+
+            modifyForm.addEventListener("submit", function(event) {
+                var fullName = document.getElementById("fullName").value;
+                var address = document.getElementById("address").value;
+                var mobileNo = document.getElementById("mobileNo").value;
+                var email = document.getElementById("email").value;
+                var accountType = document.getElementById("accountType").value;
+                var balance = document.getElementById("balance").value;
+                var dob = document.getElementById("dob").value;
+
+                var error = "";
+
+                if (!fullName.trim()) {
+                    error += "Full Name is required.\n";
+                }
+                if (!address.trim()) {
+                    error += "Address is required.\n";
+                }
+                if (!mobileNo.trim() || mobileNo.length !== 10 || isNaN(mobileNo)) {
+                    error += "Mobile Number must be 10 digits.\n";
+                }
+                if (!email.trim() || !validateEmail(email)) {
+                    error += "Valid Email is required.\n";
+                }
+                if (!accountType.trim()) {
+                    error += "Account Type is required.\n";
+                }
+                if (balance.trim() === "" || balance < 1000) {
+                    error += "Balance should be at least 1000.\n";
+                }
+                if (!dob.trim()) {
+                    error += "Date of Birth is required.\n";
+                }
+
+                if (error !== "") {
+                    alert(error);
+                    event.preventDefault(); // Prevent form submission
+                }
+            });
+        }
+
+        // Function to validate email format
+        function validateEmail(email) {
+            var re = /\S+@\S+\.\S+/;
+            return re.test(email);
+        }
+        
+        function validateForm() {
+            var fullName = document.getElementById("fullName").value;
+            var address = document.getElementById("address").value;
+            var mobileNo = document.getElementById("mobileNo").value;
+            var email = document.getElementById("email").value;
+            var accountType = document.getElementById("accountType").value;
+            var balance = document.getElementById("balance").value;
+            var dob = document.getElementById("dob").value;
+            var idProof = document.getElementById("idProof").value;
+            var idProofNumber = document.getElementsByName("id_proff_number")[0].value;
+
+            var error = "";
+
+            if (!fullName.trim()) {
+                error += "Full Name is required.\n";
+            }
+            if (!address.trim()) {
+                error += "Address is required.\n";
+            }
+            if (!mobileNo.trim() || mobileNo.length !== 10 || isNaN(mobileNo)) {
+                error += "Mobile Number must be 10 digits.\n";
+            }
+            if (!email.trim() || !validateEmail(email)) {
+                error += "Valid Email is required.\n";
+            }
+            if (!accountType.trim()) {
+                error += "Account Type is required.\n";
+            }
+            if (balance.trim() === "" || balance < 1000) {
+                error += "Balance should be at least 1000.\n";
+            }
+            if (!dob.trim()) {
+                error += "Date of Birth is required.\n";
+            }
+            // Additional validation for ID Proof
+            if (idProof === "Aadhar") {
+                if (idProofNumber.trim().length !== 12 || isNaN(idProofNumber)) {
+                    error += "Aadhar Number must be 12 digits.\n";
+                }
+            } else if (idProof === "PAN") {
+                var panRegex = /^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$/;
+                if (!panRegex.test(idProofNumber)) {
+                    error += "Invalid PAN Number format.\n";
+                }
+            }
+
+            if (error !== "") {
+                alert(error);
+                return false;
+            }
+
+            return true;
+        }
+
+        function validateEmail(email) {
+            var re = /\S+@\S+\.\S+/;
+            return re.test(email);
+        }
+    </script>
+</body>
+</html>
